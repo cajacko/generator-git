@@ -1,0 +1,29 @@
+{
+  "name": "generator-git",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Charlie Jackson",
+  "license": "MIT",
+  "keywords": [
+    "javascript",
+    "yeoman-generator"
+  ],
+  "files": [
+    "app"
+  ],
+  "dependencies": {
+    "yeoman-generator": "1.1.0"
+  },
+  "scripts": {
+    "lint": "eslint **/*.js",
+    "eslint": "eslint"
+  },
+  "devDependencies": {
+    "eslint": "3.15.0",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.10.0"
+  }
+}
