@@ -1,5 +1,6 @@
 const Generator = require('yeoman-generator');
 const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 module.exports = class extends Generator {
   prompting() {
@@ -7,6 +8,7 @@ module.exports = class extends Generator {
       type: 'confirm',
       name: 'subdir',
       message: 'Would you like to create a directory for this repository?',
+      default: false
     }, {
       type: 'input',
       name: 'name',
@@ -20,7 +22,7 @@ module.exports = class extends Generator {
     }, {
       type: 'confirm',
       name: 'gitflow',
-      message: 'Would you like to use gitflow?',
+      message: 'Would you like to use gitflow?'
     }]).then((answers) => {
       this.subdir = answers.subdir;
       this.name = answers.name;
@@ -33,36 +35,43 @@ module.exports = class extends Generator {
     const destinationPath = this.destinationPath();
     let path;
     let gitDir;
+    let command;
     const gitCommad = [];
 
     if (this.subdir) {
+      mkdirp.sync(this.destinationPath(this.name));
       gitDir = `${destinationPath}/${this.name}`;
       gitCommad.push('-C', gitDir);
       path = `${destinationPath}/${this.name}/.git`;
-
-      this.spawnCommandSync('git', gitCommad.push('init'));
     } else {
       path = `${destinationPath}/.git`;
     }
+
+    command = gitCommad.concat('init');
+    this.spawnCommandSync('git', command);
 
     if (!fs.existsSync(path)) {
       throw new Error('Git does not exist in the path');
     }
 
     if (this.gitflow) {
-      this.spawnCommandSync('git', gitCommad.push(
+      command = gitCommad.concat(
         'flow',
         'init',
         '-f',
         '-d'
-      ));
+      );
+
+      this.spawnCommandSync('git', command);
     }
 
-    this.spawnCommandSync('git', gitCommad.push(
+    command = gitCommad.concat(
       'remote',
       'add',
       'origin',
       this.origin
-    ));
+    );
+
+    this.spawnCommandSync('git', command);
   }
 };
