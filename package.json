@@ -1,5 +1,5 @@
 {
-  "name": "generator-git",
+  "name": "generator-git-cj",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "yeoman-generator"
   ],
   "files": [
-    "app"
+    "generators"
   ],
   "dependencies": {
     "mkdirp": "0.5.1",
