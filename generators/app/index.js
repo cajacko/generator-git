@@ -20,7 +20,7 @@ module.exports = class extends Generator {
     });
   }
 
-  initialiseGit() {
+  configuring() {
     const destinationPath = this.destinationPath();
     const path = `${destinationPath}/.git`;
 
